@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>an nhớ hyhy</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #ff6b81;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button.yes {
+            background-color: #ff6b81;
+            color: white;
+        }
+
+        button.no {
+            background-color: #aaa;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Xe cute chạy */
+        .car {
+            position: absolute;
+            bottom: 10%;
+            left: -100px;
+            width: 80px;
+            height: 40px;
+            background: #ff6b81;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: drive 5s linear infinite;
+        }
+
+        .car::before,
+        .car::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            width: 20px;
+            height: 20px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .car::before {
+            left: 10px;
+        }
+
+        .car::after {
+            right: 10px;
+        }
+
+        @keyframes drive {
+            0% {
+                left: -100px;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: -100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 vì ko làm đc bài và quá nhớ e 
+            nên e sang thơm a cái nhé
+            Iu2Iu2 🌸</h1>
+        <p>Nhấn nút để trả lời!</p>
+        <div class="btn">
+            <button class="yes" onclick="showLove()">Đồng ý 💖</button>
+            <button class="no" id="noButton" onmouseover="moveNo()">Không 🥲</button>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popupContent">
+            <!-- Nội dung sẽ được thêm ở đây -->
+        </div>
+    </div>
+
+    <!-- Xe cute -->
+    <div class="car"></div>
+
+    <script>
+        function showLove() {
+            const popup = document.getElementById('popup');
+            const popupContent = document.getElementById('popupContent');
+
+            // Hiển thị giao diện cute
+            popup.style.display = 'flex';
+            popupContent.innerHTML = `
+                <div>Yay! hỏi z thôi chứ e ko đồng ý cũng z àà
+                    iu2iu2 💕</div>
+                <div class="heart">❤️❤️❤️</div>
+            `;
+
+            // Đổi màu nền
+            document.body.style.background = "linear-gradient(135deg, #8fd3f4, #84fab0)";
+        }
+
+        function moveNo() {
+            const noButton = document.getElementById('noButton');
+            const container = document.querySelector('.container');
+            
+            // Lấy vị trí hiện tại của nút "Không"
+            const buttonRect = noButton.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            // Tính toán vị trí di chuyển (giới hạn trong container)
+            const maxMoveX = 200;
+            const maxMoveY = 200;
+
+            let newX = buttonRect.left + (Math.random() > 0.5 ? 1 : -1) * Math.random() * maxMoveX;
+            let newY = buttonRect.top + (Math.random() > 0.5 ? 1 : -1) * Math.random() * maxMoveY;
+
+            // Giới hạn trong container
+            if (newX < containerRect.left) newX = containerRect.left;
+            if (newX + noButton.offsetWidth > containerRect.right) newX = containerRect.right - noButton.offsetWidth;
+            if (newY < containerRect.top) newY = containerRect.top;
+            if (newY + noButton.offsetHeight > containerRect.bottom) newY = containerRect.bottom - noButton.offsetHeight;
+
+            // Đặt vị trí mới
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${newX - containerRect.left}px`;
+            noButton.style.top = `${newY - containerRect.top}px`;
+        }
+    </script>
+</body>
+</html>
